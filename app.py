@@ -1,11 +1,17 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 import pandas as pd
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-app = Flask(__name__)
-app.secret_key = 'clave_secreta_para_flash_messages'
+# Obtén la ruta absoluta del directorio actual
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+# Crea la aplicación Flask indicando explícitamente las carpetas
+app = Flask(__name__,
+            template_folder=os.path.join(base_dir, 'templates'),
+            static_folder=os.path.join(base_dir, 'static'))
 
 # ============================================================
 # 1. CONFIGURACIÓN (cargar desde Excel o fallback)
